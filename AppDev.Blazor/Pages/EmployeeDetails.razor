@@ -11,7 +11,7 @@
 
 <p>This component demonstrates fetching data from a service.</p>
 
-@if (employeeData == null)
+@if (employeeDatas == null)
 {
     <p>
         <em>Loading...</em>
@@ -22,26 +22,29 @@ else
     <table class="table">
         <thead>
         <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Department Name</th>
+            <th>Designation</th>
+            <th>Salary</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-                @* <td>@employeeData.Designation</td> *@
-                @* <td>@employeeData.Salary</td> *@
-            </tr>
+        @foreach (var employeeData in employeeDatas)
+            {
+                <tr>
+                    <td>@employeeData.DepartmentName</td>
+                    <td>@employeeData.Designation</td>
+                    <td>@employeeData.Salary</td>
+                </tr>
+            }
         </tbody>
     </table>
 }
 
 @code {
-    private Object? employeeData;
+    private List<EmployeeData>? employeeDatas;
     protected override async Task OnInitializedAsync()
     {
-        employeeData = await EmployeeService.GetEmployeeAsync();
+        employeeDatas = await EmployeeService.GetEmployeeAsync();
     }
 
 }

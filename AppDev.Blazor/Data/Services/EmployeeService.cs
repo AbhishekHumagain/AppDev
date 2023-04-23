@@ -12,12 +12,12 @@ public class EmployeeService
         _httpClient = httpClient;
     }
 
-    public async Task<Object?> GetEmployeeAsync()
+    public async Task<List<EmployeeData>?> GetEmployeeAsync()
     {
         var response =  await _httpClient.GetAsync("https://localhost:7190/api/employee/all-employee");
         
         var result = response.Content.ReadAsStringAsync().Result;
-        var rr = JsonConvert.DeserializeObject<EmployeeData>(result);
+        var rr = JsonConvert.DeserializeObject<List<EmployeeData>>(result);
         return rr;
     }
 }
