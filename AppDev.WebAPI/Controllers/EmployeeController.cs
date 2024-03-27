@@ -25,7 +25,7 @@ namespace AppDev.WebAPI.Controllers
 
         [HttpPost]
         [Route("/api/employee/add-employee")]
-        public async Task<EmployeeResponseDTO> AddEmployeeDetails(EmployeeRequestDTO employee)
+        public async Task<EmployeeResponseDTO> AddEmployeeDetails(EmployeeRequestDto employee)
         {
             var data = await _employeeDetails.AddEmployeeDetails(employee);
             return data;

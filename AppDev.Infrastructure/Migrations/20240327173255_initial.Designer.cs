@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AppDev.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230408163149_seeding")]
-    partial class seeding
+    [Migration("20240327173255_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,20 +27,18 @@ namespace AppDev.Infrastructure.Migrations
 
             modelBuilder.Entity("AppDev.Domain.Entities.Department", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DeletedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("timestamp with time zone");
@@ -51,8 +49,8 @@ namespace AppDev.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -65,23 +63,24 @@ namespace AppDev.Infrastructure.Migrations
 
             modelBuilder.Entity("AppDev.Domain.Entities.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DeletedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Designation")
                         .HasColumnType("text");
@@ -95,36 +94,36 @@ namespace AppDev.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<float>("Salary")
                         .HasColumnType("real");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DepartmentId");
+
                     b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("AppDev.Domain.Entities.SalaryOrBonus", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<double>("Amount")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DeletedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("timestamp with time zone");
@@ -138,8 +137,8 @@ namespace AppDev.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -274,14 +273,14 @@ namespace AppDev.Infrastructure.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "42ce0753-544a-4a0e-b8ce-2f136c7b0897",
+                            ConcurrencyStamp = "987f03d6-5da0-4618-94a5-02cdd8068638",
                             Email = "ahumagain64@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "AHUMAGAIN64@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGkxHe32YkS8SFpcBtoFWoW9dRB+XdM+x8Jxs/cAiu8HPxid14uPMQTIuRjW/hY8zg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHqhYmzretrTs7lt85dkRJP6ufCO98jDrI75ZQQIq1ML1al1kIRKdx+3aMChPShjkQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8751af76-9083-43b9-8548-82374377ea3f",
+                            SecurityStamp = "9cd9b6b3-089e-4394-afdb-bc49ff058fe7",
                             TwoFactorEnabled = false,
                             UserName = "Abhishek Humagain"
                         });
@@ -373,6 +372,17 @@ namespace AppDev.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AppDev.Domain.Entities.Employee", b =>
+                {
+                    b.HasOne("AppDev.Domain.Entities.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

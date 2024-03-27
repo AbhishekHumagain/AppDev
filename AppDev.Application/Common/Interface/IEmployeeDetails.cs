@@ -7,6 +7,6 @@ namespace AppDev.Application.Common.Interface
     {
         Task<List<EmployeeResponseDTO>> GetAllUserAsync();
         Task<List<EmployeeResponseDTO>> GetAllUser();
-        Task<EmployeeResponseDTO> AddEmployeeDetails(EmployeeRequestDTO employee);
+        Task<EmployeeResponseDTO> AddEmployeeDetails(EmployeeRequestDto employee);
     }
 }

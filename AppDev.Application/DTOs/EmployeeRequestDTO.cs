@@ -1,10 +1,10 @@
 ﻿namespace AppDev.Application.DTOs
 {
-    public class EmployeeRequestDTO
+    public class EmployeeRequestDto
     {
         public DateTime JoinDate { get; set; }
         public string Designation { get; set; }
         public float Salary { get; set; }
-        public int DepartmentId { get; set; }
+        public Guid DepartmentId { get; set; }
     }
 }

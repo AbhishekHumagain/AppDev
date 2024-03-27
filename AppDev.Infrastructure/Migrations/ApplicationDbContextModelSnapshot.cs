@@ -24,20 +24,18 @@ namespace AppDev.Infrastructure.Migrations
 
             modelBuilder.Entity("AppDev.Domain.Entities.Department", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DeletedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("timestamp with time zone");
@@ -48,8 +46,8 @@ namespace AppDev.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -62,26 +60,24 @@ namespace AppDev.Infrastructure.Migrations
 
             modelBuilder.Entity("AppDev.Domain.Entities.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DeletedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Designation")
                         .HasColumnType("text");
@@ -95,8 +91,8 @@ namespace AppDev.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<float>("Salary")
                         .HasColumnType("real");
@@ -110,23 +106,21 @@ namespace AppDev.Infrastructure.Migrations
 
             modelBuilder.Entity("AppDev.Domain.Entities.SalaryOrBonus", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<double>("Amount")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DeletedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("timestamp with time zone");
@@ -140,8 +134,8 @@ namespace AppDev.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -276,14 +270,14 @@ namespace AppDev.Infrastructure.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a7c123b9-5fe5-41ba-9da9-a95b9172bff5",
+                            ConcurrencyStamp = "987f03d6-5da0-4618-94a5-02cdd8068638",
                             Email = "ahumagain64@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "AHUMAGAIN64@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJRs85wy45TDVNVIvi58yxsCM2HF/BXkCNStIQMwrFIGa1UWcsloehJ4gh9OBhGhSg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHqhYmzretrTs7lt85dkRJP6ufCO98jDrI75ZQQIq1ML1al1kIRKdx+3aMChPShjkQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb1276a5-0723-47f6-900c-3197ce283f0f",
+                            SecurityStamp = "9cd9b6b3-089e-4394-afdb-bc49ff058fe7",
                             TwoFactorEnabled = false,
                             UserName = "Abhishek Humagain"
                         });

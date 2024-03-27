@@ -18,7 +18,7 @@ namespace AppDev.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public async Task<EmployeeResponseDTO> AddEmployeeDetails(EmployeeRequestDTO employee)
+        public async Task<EmployeeResponseDTO> AddEmployeeDetails(EmployeeRequestDto employee)
         {
             var employeeDetails = new Employee()
             {
