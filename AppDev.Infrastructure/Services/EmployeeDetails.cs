@@ -11,12 +11,7 @@ namespace AppDev.Infrastructure.Services
         {
             _dbContext = dBContext;
         }
-
-
-        public Task<List<EmployeeResponseDTO>> GetAllUser()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public async Task<EmployeeResponseDTO> AddEmployeeDetails(EmployeeRequestDto employee)
         {
@@ -25,7 +20,7 @@ namespace AppDev.Infrastructure.Services
                 JoinDate = employee.JoinDate,
                 Designation = employee.Designation,
                 Salary = employee.Salary,
-                DepartmentId = employee.DepartmentId
+                DepartmentId = employee.DepartmentId,
             };
             await _dbContext.Employee.AddAsync(employeeDetails);
             await _dbContext.SaveChangesAsync(default(CancellationToken));
