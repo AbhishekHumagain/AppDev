@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AppDev.Application\AppDev.Application.csproj" />
+      <ProjectReference Include="..\AppDev.Blazor\AppDev.Blazor.csproj" />
       <ProjectReference Include="..\AppDev.Infrastructure\AppDev.Infrastructure.csproj" />
     </ItemGroup>
 

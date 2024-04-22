@@ -35,6 +35,7 @@ namespace AppDev.Infrastructure.DI
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IAuthentication, AuthenticationService>();
+            // services.AddTransient<IServiceCollection, sigba>
 
             services.AddTransient<IEmployeeDetails, EmployeeDetails>();
 

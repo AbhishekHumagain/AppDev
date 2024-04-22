@@ -5,6 +5,7 @@ using AppDev.Blazor.Data;
 using AppDev.Blazor.Data.DTO;
 using AppDev.Blazor.Data.Helper;
 using AppDev.Blazor.Data.Services;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,13 @@ builder.Services.AddHttpClient(Options.DefaultName, client =>
 {
     // setup client
 });
+//
+// //signalR implementation
+// builder.Services.AddResponseCompression(opts =>
+// {
+//     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+//         new[] { "application/octet-stream" });
+// });
 
 var app = builder.Build();
 

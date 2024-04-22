@@ -1,0 +1,86 @@
+@page "/addEmployee"
+@using AppDev.Blazor.Data.DTO
+@using AppDev.Blazor.Data.Services
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager NavigationManager
+@inject EmployeeService EmployeeService
+
+<h2>Create Employee</h2>
+<hr />
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="JoinDate" class="control-label">Joining Date</label>
+                <input id="JoinDate" class="form-control" @bind="@employeeRequest.JoinDate" />
+            </div>
+            <div class="form-group">
+                <label for="Department" class="control-label">Department</label>
+                <input id="Department" class="form-control" @bind="@employeeRequest.DepartmentId" />
+            </div>
+            <div class="form-group">
+                <label for="Designation" class="control-label">Designation</label>
+                <input id="Designation" class="form-control" @bind="@employeeRequest.Designation" />
+            </div>
+            <div class="form-group">
+                <label for="Salary" class="control-label">Salary</label>
+                <input id="Salary" class="form-control" @bind="@employeeRequest.Salary" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateEmployee" value="Save" />
+                <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    private HubConnection hubConnection;
+    private EmployeeRequestDto employeeRequest = new EmployeeRequestDto();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7190/signalRHub")
+            .Build();
+
+        await hubConnection.StartAsync();
+    }
+
+    private async Task CreateEmployee()
+    {
+        // Logic to collect employee data from form
+        await EmployeeService.PostEmployeeAsync(employeeRequest);
+        
+        if (IsConnected)
+        {
+            // Send a message to SignalR hub to trigger data reload
+            await SendMessage();
+        }
+        
+        // Navigate to employee data page
+        NavigationManager.NavigateTo("employeeData");
+    }
+
+    private async Task SendMessage()
+    {
+        await hubConnection.SendAsync("SendMessage");
+    }
+
+    private bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+
+    public void Dispose()
+    {
+        _ = hubConnection.DisposeAsync();
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("employeeData");
+    }
+}
