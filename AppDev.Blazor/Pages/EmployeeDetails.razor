@@ -1,15 +1,11 @@
 ﻿@page "/employeeData"
-
-<PageTitle>Employee Details</PageTitle>
-
-@using AppDev.Blazor.Data
 @using AppDev.Blazor.Data.DTO
 @using AppDev.Blazor.Data.Services
+@using Microsoft.AspNetCore.SignalR.Client
 @inject EmployeeService EmployeeService
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from a service.</p>
+<h2>Employee Details</h2>
+<hr />
 
 @if (employeeDatas == null)
 {
@@ -29,22 +25,44 @@ else
         </thead>
         <tbody>
         @foreach (var employeeData in employeeDatas)
-            {
-                <tr>
-                    <td>@employeeData.DepartmentName</td>
-                    <td>@employeeData.Designation</td>
-                    <td>@employeeData.Salary</td>
-                </tr>
-            }
+        {
+            <tr>
+                <td>@employeeData.DepartmentName</td>
+                <td>@employeeData.Designation</td>
+                <td>@employeeData.Salary</td>
+            </tr>
+        }
         </tbody>
     </table>
 }
 
 @code {
-    private List<EmployeeData>? employeeDatas;
+    private List<EmployeeData> employeeDatas;
+    private HubConnection hubConnection;
+
     protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7190/signalRHub")
+            .Build();
+
+        hubConnection.On("ReceiveMessage", async () =>
+        {
+            await LoadData();
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+        await LoadData();
+    }
+
+    private async Task LoadData()
     {
         employeeDatas = await EmployeeService.GetEmployeeAsync();
     }
 
+    public void Dispose()
+    {
+        _ = hubConnection.DisposeAsync();
+    }
 }

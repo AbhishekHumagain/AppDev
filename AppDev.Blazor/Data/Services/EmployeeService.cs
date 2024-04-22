@@ -19,4 +19,22 @@ public class EmployeeService
         var rr = JsonConvert.DeserializeObject<List<EmployeeData>>(result);
         return rr;
     }
+    
+    public async Task<int> CountEmployee()
+    {
+        var response = await _httpClient.AuthGetAsync("https://localhost:7190/api/employee/all-employee");
+        var result = response.Content.ReadAsStringAsync().Result;
+        var rr = JsonConvert.DeserializeObject<List<EmployeeData>>(result);
+        return rr.Count;
+    }
+    
+    public async Task<string> PostEmployeeAsync(EmployeeRequestDto requestDto)
+    {
+        var response = await _httpClient.AuthPostAsJsonAsync("https://localhost:7190/api/employee/add-employee", requestDto);
+        if (response.IsSuccessStatusCode)
+        {
+            return "Employee Added";
+        }
+        return "Employee Not Added";
+    }
 }

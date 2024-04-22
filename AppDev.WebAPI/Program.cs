@@ -1,6 +1,8 @@
 using System.Text.Json;
 using AppDev.Application.DTOs;
 using AppDev.Infrastructure.DI;
+using AppDev.WebAPI.Helper;
+using Microsoft.AspNetCore.ResponseCompression;
 
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -15,7 +19,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 // builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddAuthentication();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: myAllowSpecificOrigins,
@@ -25,6 +28,13 @@ builder.Services.AddCors(options =>
                 "http://localhost:5011/");
         });
 });
+
+//signalR implementation
+// builder.Services.AddResponseCompression(opts =>
+// {
+//     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+//         new[] { "application/octet-stream" });
+// });
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -45,7 +55,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 var app = builder.Build();
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -57,6 +67,13 @@ app.UseCors(myAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseRouting(); //for identity
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<SignalRHub>("/signalRHub");
+});
+
 app.UseAuthentication(); //for identity
 app.UseAuthorization();
 // app.UseCors(myAllowSpecificOrigins);

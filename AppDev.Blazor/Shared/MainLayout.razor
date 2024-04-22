@@ -1,15 +1,37 @@
-﻿@inherits LayoutComponentBase
+﻿@using AppDev.Blazor.Data.Services
+@inherits LayoutComponentBase
+@inject EmployeeService EmployeeService
+
 
 <PageTitle>AppDev.Blazor</PageTitle>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
 <div class="page">
     <div class="sidebar">
         <NavMenu/>
     </div>
+    <style>
+        /* CSS for the notification icon container */
+        .notification-icon-container {
+            position: relative;
+            display: inline-block; /* Ensures the container wraps around the icon and badge */
+        }
+        
+        /* CSS for the badge */
+        .badge {
+            position: absolute;
+            top: 7px; /* Adjust this value to position the badge vertically */
+            right: 15px; /* Adjust this value to position the badge horizontally */
+            background-color: red; /* Adjust badge background color */
+            color: white; /* Adjust badge text color */
+            border-radius: 50%; /* Makes badge circular */
+            padding: 2px 4px; /* Adjust badge padding */
+            font-size: 12px; /* Adjust badge font size */
+        }
 
+    </style>
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <i class="fas fa-bell"></i> 
         </div>
 
         <article class="content px-4">
